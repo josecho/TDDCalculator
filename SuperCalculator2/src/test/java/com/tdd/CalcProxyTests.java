@@ -133,7 +133,7 @@ public class CalcProxyTests {
 				e.printStackTrace();
 			}
 
-		} catch (OverflowException oEx) {
+		} catch (RuntimeException ex) {
 			// Ok, this works
 
 		}
@@ -151,7 +151,7 @@ public class CalcProxyTests {
 				e.printStackTrace();
 			}
 
-		} catch (OverflowException oEx) {
+		} catch (RuntimeException ex) {
 		}
 	}
 
@@ -167,7 +167,7 @@ public class CalcProxyTests {
 				e.printStackTrace();
 			}
 
-		} catch (OverflowException oEx) {
+		} catch (RuntimeException ex) {
 			// Ok , this works
 		}
 	}
@@ -184,55 +184,11 @@ public class CalcProxyTests {
 				e.printStackTrace();
 			}
 
-		} catch (OverflowException oEx) {
+		} catch (RuntimeException ex) {
 			// Ok , this works
 		}
 	}
 
-	@Test
-	public void parserWorksWithCalcProxy() {
-		CalculatorProxy calcProxyMock = mock(CalculatorProxy.class);
-
-		// para que funcione
-		Lexer lexerMock = mock(Lexer.class);
-		List<MathToken> tokens = new ArrayList<MathToken>();
-		tokens.add(new MathToken("2"));
-		tokens.add(new MathToken("+"));
-		tokens.add(new MathToken("2"));
-		// //////
-
-		try {
-			when(calcProxyMock.getCalculator()).thenReturn(calculator);
-			// System.out.println(calcProxyMock.getCalculator());
-			when(
-					calcProxyMock.binaryOperation(calculator.getClass()
-							.getMethod("add", int.class, int.class), 2, 2))
-					.thenReturn(4);
-			// para que funcione
-			when(lexerMock.getTokens("2 + 2")).thenReturn(tokens);
-
-			MathParser parser = new MathParser(lexerMock, calcProxyMock);
-
-			parser.processExpression("2 + 2");
-
-			verify(calcProxyMock).binaryOperation(
-					calculator.getClass()
-							.getMethod("add", int.class, int.class), 2, 2);
-			verify(calcProxyMock).getCalculator();
-			// A revisar
-			assertEquals(calculator, calcProxyMock.getCalculator());
-			assertEquals(4, calcProxyMock.binaryOperation(calculator.getClass()
-					.getMethod("add", int.class, int.class), 2, 2));
-
-		} catch (SecurityException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (NoSuchMethodException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
-		// calcProxyMock.VerifyAllExpectations();
-	}
+	
 
 }

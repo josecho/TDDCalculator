@@ -1,6 +1,7 @@
 package com.tdd;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 
@@ -22,7 +23,7 @@ public class MathLexer implements Lexer {
 
 		if (expression.length() > 1) {
 			if (!mathRegex.isExpressionValid(expression)) {
-				throw new RuntimeException(expression);
+				throw new InvalidOperationException(expression);
 			}
 		}
 		String[] items = splitExpression(expression);
@@ -54,7 +55,8 @@ public class MathLexer implements Lexer {
 			throw new InvalidOperationException("Parenthesis do not match");
 		}
 		fixer.fixExpressions(totalExpressionsFound);
-		bubbleSortExpressions(totalExpressionsFound);
+		Collections.sort(totalExpressionsFound);
+		//bubbleSortExpressions(totalExpressionsFound);
 		return totalExpressionsFound;
 	}
 
@@ -103,7 +105,7 @@ public class MathLexer implements Lexer {
 				.getExpression().length();
 	}
 
-	private void bubbleSortExpressions(List<MathExpression> subExpressions) {
+	/*private void bubbleSortExpressions(List<MathExpression> subExpressions) {
 		for (int i = 0; i < subExpressions.size(); i++) {
 			for (int j = 0; j < subExpressions.size() - 1; j++) {
 				MathExpression exp1 = subExpressions.get(j);
@@ -114,6 +116,6 @@ public class MathLexer implements Lexer {
 				}
 			}
 		}
-	}
+	}*/
 
 }

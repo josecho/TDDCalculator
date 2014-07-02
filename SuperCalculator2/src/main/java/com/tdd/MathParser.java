@@ -1,8 +1,16 @@
 package com.tdd;
 
+import static org.junit.Assert.assertEquals;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+
+import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import org.junit.Test;
 
 public class MathParser {
 
@@ -32,6 +40,30 @@ public class MathParser {
 		return resolveSimpleExpression(flatExpression);
 
 	}
+	
+	/*@Test
+	public void ParserWorksWithLexer() {
+		List<MathToken> tokens = new ArrayList<MathToken>();
+		tokens.add(new MathToken("2"));
+		tokens.add(new MathToken("+"));
+		tokens.add(new MathToken("2"));
+		Lexer lexerMock = mock(Lexer.class);
+		when(lexerMock.getTokens("2 + 2")).thenReturn(tokens);
+		MathParser parser = new MathParser(lexerMock, new CalcProxy(
+				new Validator(-100, 100), new Calculator()));
+		try {
+			parser.processExpression("2 + 2");
+		} catch (SecurityException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (NoSuchMethodException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		verify(lexerMock).getTokens("2 + 2");
+		assertEquals(tokens, lexerMock.getTokens("2 + 2"));
+	}*/
+
 
 	private boolean isSubExpression(String exp) {
 		Pattern operatorRegex = Pattern.compile("[\\+|\\-|\\*|/]");
@@ -87,5 +119,7 @@ public class MathParser {
 		}
 		return maxPrecedenceOperator;
 	}
+	
+	
 
 }

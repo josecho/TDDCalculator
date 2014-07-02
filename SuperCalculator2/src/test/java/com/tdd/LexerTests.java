@@ -61,29 +61,7 @@ public class LexerTests {
 		}
 	}
 
-	@Test
-	public void ParserWorksWithLexer() {
-		List<MathToken> tokens = new ArrayList<MathToken>();
-		tokens.add(new MathToken("2"));
-		tokens.add(new MathToken("+"));
-		tokens.add(new MathToken("2"));
-		Lexer lexerMock = mock(Lexer.class);
-		when(lexerMock.getTokens("2 + 2")).thenReturn(tokens);
-		MathParser parser = new MathParser(lexerMock, new CalcProxy(
-				new Validator(-100, 100), new Calculator()));
-		try {
-			parser.processExpression("2 + 2");
-		} catch (SecurityException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (NoSuchMethodException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		verify(lexerMock).getTokens("2 + 2");
-		assertEquals(tokens, lexerMock.getTokens("2 + 2"));
-	}
-
+	
 	@Test
 	public void getExpressionWiht1Parenthesis() {
 		List<MathExpression> expression = lexer.getExpressions("(2 + 2)");

@@ -1,7 +1,11 @@
 package com.tdd;
 
 import static org.junit.Assert.*;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.Before;
@@ -32,13 +36,83 @@ public class ParserTests {
 		try {
 			assertEquals(4, parser.processExpression("2 + 2"));
 		} catch (SecurityException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (NoSuchMethodException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
+	
+	/*@Test
+	public void ParserWorksWithLexer() {
+	List<MathToken> tokens = new ArrayList<MathToken>();
+	tokens.add(new MathToken("2"));
+	tokens.add(new MathToken("+"));
+	tokens.add(new MathToken("2"));
+	Lexer lexerMock = mock(Lexer.class);
+	when(lexerMock.getTokens("2 + 2")).thenReturn(tokens);
+	MathParser parser = new MathParser(lexerMock, new CalcProxy(
+	new Validator(-100, 100), new Calculator()));
+	try {
+	parser.processExpression("2 + 2");
+	} catch (SecurityException e) {
+	// TODO Auto-generated catch block
+	e.printStackTrace();
+	} catch (NoSuchMethodException e) {
+	// TODO Auto-generated catch block
+	e.printStackTrace();
+	}
+	verify(lexerMock).getTokens("2 + 2");
+	assertEquals(tokens, lexerMock.getTokens("2 + 2"));
+	}*/
+	
+	/*@Test
+	public void parserWorksWithCalcProxy() {
+		CalculatorProxy calcProxyMock = mock(CalculatorProxy.class);
+
+		// para que funcione
+		Lexer lexerMock = mock(Lexer.class);
+		List<MathToken> tokens = new ArrayList<MathToken>();
+		tokens.add(new MathToken("2"));
+		tokens.add(new MathToken("+"));
+		tokens.add(new MathToken("2"));
+		// //////
+
+		try {
+			when(calcProxyMock.getCalculator()).thenReturn(calculator);
+			// System.out.println(calcProxyMock.getCalculator());
+			when(
+					calcProxyMock.binaryOperation(calculator.getClass()
+							.getMethod("add", int.class, int.class), 2, 2))
+					.thenReturn(4);
+			// para que funcione
+			when(lexerMock.getTokens("2 + 2")).thenReturn(tokens);
+
+			MathParser parser = new MathParser(lexerMock, calcProxyMock);
+
+			parser.processExpression("2 + 2");
+
+			verify(calcProxyMock).binaryOperation(
+					calculator.getClass()
+							.getMethod("add", int.class, int.class), 2, 2);
+			verify(calcProxyMock).getCalculator();
+			// A revisar
+			assertEquals(calculator, calcProxyMock.getCalculator());
+			assertEquals(4, calcProxyMock.binaryOperation(calculator.getClass()
+					.getMethod("add", int.class, int.class), 2, 2));
+
+		} catch (SecurityException e) {
+			e.printStackTrace();
+		} catch (NoSuchMethodException e) {
+			e.printStackTrace();
+		}
+
+		// calcProxyMock.VerifyAllExpectations();
+	}*/
+	
+	
+	
+	
+	
 
 	@Test
 	public void processExpression2Operators() {
