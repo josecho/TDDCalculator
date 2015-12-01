@@ -79,6 +79,7 @@ public class StockBrokerTest {
 
 	@Test
 	public void verify_zero_interaction() {
+		verifyZeroInteractions(marketWatcher,portfolio);
 	}
 
 	// This test will fail, this is to demonstrate the error
